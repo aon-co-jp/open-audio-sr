@@ -1,0 +1,6 @@
+/target
+/.deps
+/.venv
+/testdata
+__pycache__/
+*.pyc

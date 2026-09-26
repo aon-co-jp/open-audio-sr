@@ -1,0 +1,35 @@
+[package]
+name = "open-audio-sr"
+version = "0.1.0"
+edition = "2021"
+description = "AudioSR(MIT/Apache-2.0の実在する帯域拡張AIモデル)をRust+RPoemでラップする音声超解像サービス。ライブラリとしても、HTTP APIとしても使える。"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/aon-co-jp/open-audio-sr"
+
+[lib]
+name = "open_audio_sr"
+path = "src/lib.rs"
+
+[[bin]]
+name = "open-audio-sr"
+path = "src/main.rs"
+
+[dependencies]
+# HTTP API(他プロジェクトからネットワーク越しに呼ぶ場合)。aruaru-search/aruaru-llmと同じ薄い層。
+# 2026-09-26: 初回ビルドが数十分規模で重いためRPoem以外への切替も検討したが、
+# 「ハングではなく単に依存グラフが大きいだけ(実際には完走していた)」と判明したため、
+# エコシステムの慣習(aruaru-search等と同じ土台)を優先してRPoemへ戻した。
+open-runo-poem-compat = { path = ".deps/RPoem/crates/open-runo-poem-compat" }
+# CPU命令セット検出(AVX2/AVX512の有無に応じてONNX Runtime等の実行プロバイダを選ぶ判断に使う。現状はPython
+# サブプロセス委譲のみで未使用、将来ネイティブ推論に切り替える際の下地として先に依存だけ入れておく)。
+open-cpu = { path = ".deps/open-cpu" }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "signal", "time", "process"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+thiserror = "1"
+http-body-util = "0.1"
+hyper = { version = "1.10", features = ["full"] }
+
+[dev-dependencies]
+tempfile = "3"

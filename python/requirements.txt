@@ -1,0 +1,37 @@
+# audiosr(PyPI)自身のrequirements(numpy<=1.23.5・transformers==4.30.2等)は
+# Python 3.13と非互換(README.md参照)。ここには、実際にPython 3.13 + torch 2.14(CPU)で
+# 動作確認できた組み合わせだけを列挙する(2026-09-26確認)。
+#
+# インストール手順:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install --no-deps audiosr
+#   pip install -r requirements.txt
+
+numpy
+torchaudio
+tqdm
+pyyaml
+einops
+chardet
+soundfile
+progressbar2
+librosa
+huggingface_hub<2.0
+unidecode
+pandas
+phonemizer
+progressbar
+timm
+torchlibrosa
+transformers
+ftfy
+typer
+tokenizers<0.24.0,>=0.23.1
+wcwidth
+matplotlib
+torchcodec
+pyparsing
+cycler
+kiwisolver
+contourpy
+fonttools
